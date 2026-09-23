@@ -1,0 +1,91 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isUser(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'cristianmoraog14@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidPrompt(data) {
+      return data.keys().hasAll(['id', 'slug', 'title', 'description', 'body', 'category', 'createdAt']) &&
+        data.id is string && data.id.size() <= 128 &&
+        data.slug is string && data.slug.size() <= 128 &&
+        data.title is string && data.title.size() <= 150 &&
+        data.description is string && data.description.size() <= 500 &&
+        data.body is string && data.body.size() <= 20000 &&
+        data.category in ['frontend', 'backend', 'debug', 'refactor', 'testing', 'ui', 'db', 'deploy', 'skills'] &&
+        data.createdAt is string;
+    }
+
+    function isValidComment(data) {
+      return data.keys().hasAll(['id', 'promptId', 'message', 'rating', 'createdAt']) &&
+        data.id is string && data.id.size() <= 128 &&
+        data.promptId is string && data.promptId.size() <= 128 &&
+        data.message is string && data.message.size() > 0 && data.message.size() <= 2000 &&
+        data.rating is number && data.rating >= 1 && data.rating <= 5 &&
+        data.createdAt is string &&
+        (!('name' in data) || data.name == null || (data.name is string && data.name.size() <= 80));
+    }
+
+    function isValidFavorite(data, userId) {
+      return data.keys().hasAll(['userId', 'promptId', 'createdAt']) &&
+        data.userId == userId &&
+        data.promptId is string && data.promptId.size() <= 128 &&
+        data.createdAt is string;
+    }
+
+    // Curated and community prompts (managed via admin console with validation)
+    match /prompts/{promptId} {
+      allow get, list: if true;
+      allow create, update: if isValidId(promptId) && isValidPrompt(incoming());
+      allow delete: if isValidId(promptId);
+    }
+
+    // Community feedback & reviews (allows anonymous public comments and ratings)
+    match /comments/{commentId} {
+      allow get, list: if true;
+      allow create: if isValidId(commentId) && isValidComment(incoming());
+      allow update, delete: if isValidId(commentId);
+    }
+
+    // User personal favorites / bookmarks
+    match /users/{userId}/favorites/{favoriteId} {
+      allow get, list: if isUser(userId);
+      allow create: if isUser(userId) && isValidId(favoriteId) && isValidFavorite(incoming(), userId);
+      allow delete: if isUser(userId) && isValidId(favoriteId);
+    }
+
+    // Admin configuration and security keys in Firestore
+    match /config/{configId} {
+      allow get: if true;
+      allow write: if isAdmin() || !exists(/databases/$(database)/documents/config/$(configId));
+    }
+  }
+}

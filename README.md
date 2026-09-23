@@ -1,11 +1,65 @@
-<div align="center">
+# VibePrompts ⚡
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+> **Prompts listos para vibe coding.**  
+> Una biblioteca curada de prompts para construir apps con IA. Cópialos, úsalos y aporta tu calificación — sin necesidad de crear cuenta.
 
-  <h1>Built with AI Studio</h2>
+---
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## ✨ Características
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+- 🎯 **Biblioteca Curada de Prompts:** Especializados en Frontend, Backend, Skills IA, Debugging, Refactoring, Testing, UI, Bases de Datos y Deploy.
+- 🎨 **Experiencia Visual Inmersiva:** Modo Claro/Oscuro dinámico, diseño inspirado en Dala & Raycast, estética minimalista y fluida.
+- 💬 **Feedback de la Comunidad en Tiempo Real:** Comentarios, sugerencias y calificaciones anónimas integradas con **Google Cloud Firestore**.
+- 🛠️ **Consola de Administrador Integrada:** Atajo rápido (`Ctrl+Shift+L`), autenticación cifrada SHA-256 para añadir, editar y eliminar prompts, moderar comentarios y exportar/importar respaldos JSON.
+- 🛡️ **Seguridad Defensiva Zero-Trust:** Sanitización estricta contra XSS, protección contra polución de prototipos y rate-limiter anti-spam.
 
-</div>
+---
+
+## 🚀 Tecnologías
+
+- **Framework:** React 19 + TypeScript + Vite
+- **Estilos:** Tailwind CSS
+- **Base de Datos & Reglas:** Firebase Cloud Firestore
+- **Iconografía:** Lucide React
+- **Gestión de Estado:** Zustand
+
+---
+
+## 📦 Instalación y Desarrollo Local
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone https://github.com/TU_USUARIO/TU_REPOSITORIO.git
+   cd TU_REPOSITORIO
+   ```
+
+2. **Instalar dependencias:**
+   ```bash
+   npm install
+   ```
+
+3. **Iniciar el servidor de desarrollo:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Construir para producción:**
+   ```bash
+   npm run build
+   ```
+
+---
+
+## 🔒 Variables de Entorno
+
+Copia el archivo `.env.example` a `.env.local` si deseas configurar tus propias credenciales de Firebase:
+
+```bash
+cp .env.example .env.local
+```
+
+---
+
+## 📄 Licencia
+
+MIT © 2026 VibePrompts

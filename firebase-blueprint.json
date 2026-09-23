@@ -1,0 +1,138 @@
+{
+  "entities": {
+    "prompt": {
+      "title": "Prompt",
+      "description": "Curated or user-submitted vibe coding prompt",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "slug": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 150
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "body": {
+          "type": "string",
+          "maxLength": 20000
+        },
+        "category": {
+          "type": "string",
+          "enum": ["frontend", "backend", "debug", "refactor", "testing", "ui", "db", "deploy", "skills"]
+        },
+        "tools": {
+          "type": "array"
+        },
+        "tags": {
+          "type": "array"
+        },
+        "difficulty": {
+          "type": "string",
+          "enum": ["beginner", "intermediate", "advanced"]
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "slug", "title", "description", "body", "category", "createdAt"]
+    },
+    "comment": {
+      "title": "Comment",
+      "description": "Community comment and rating for a prompt",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "promptId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "rating": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "promptId", "message", "rating", "createdAt"]
+    },
+    "favorite": {
+      "title": "Favorite",
+      "description": "User bookmarked prompt",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "promptId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string"
+        }
+      },
+      "required": ["userId", "promptId", "createdAt"]
+    },
+    "adminConfig": {
+      "title": "AdminConfig",
+      "description": "System admin cryptographic authorization hash stored in Firestore",
+      "type": "object",
+      "properties": {
+        "adminHash": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "adminKey": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      },
+      "required": ["updatedAt"]
+    }
+  },
+  "firestore": {
+    "/prompts/{promptId}": {
+      "schema": "prompt",
+      "description": "Collection of curated vibe coding prompts"
+    },
+    "/comments/{commentId}": {
+      "schema": "comment",
+      "description": "Collection of user feedback and ratings"
+    },
+    "/users/{userId}/favorites/{favoriteId}": {
+      "schema": "favorite",
+      "description": "Per-user bookmarked prompts"
+    },
+    "/config/{configId}": {
+      "schema": "adminConfig",
+      "description": "Administrative system configuration and security hash"
+    }
+  }
+}

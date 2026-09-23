@@ -1,0 +1,42 @@
+[
+  {
+    "id": "c-1",
+    "promptId": "vp-1",
+    "name": "Alex Dev",
+    "message": "Increíble prompt para Cursor. Me sacó un flujo completo de autenticación y billing en una sola pasada sin dejar ningún TODO.",
+    "rating": 5,
+    "createdAt": "2026-09-20T14:32:00Z"
+  },
+  {
+    "id": "c-2",
+    "promptId": "vp-1",
+    "name": null,
+    "message": "Funciona impecable con Claude 3.7 Sonnet en Claude Code. Muy recomendado especificar bien el context del proyecto.",
+    "rating": 5,
+    "createdAt": "2026-09-21T08:15:00Z"
+  },
+  {
+    "id": "c-3",
+    "promptId": "vp-2",
+    "name": "Sofia UI",
+    "message": "La regla de cero-pills y jerarquía monolítica cambió por completo cómo responden v0 y Cursor. La estética subió de nivel inmediatamente.",
+    "rating": 5,
+    "createdAt": "2026-09-21T18:40:00Z"
+  },
+  {
+    "id": "c-4",
+    "promptId": "vp-3",
+    "name": "Marcos R.",
+    "message": "El enfoque de primeros principios me ayudó a resolver un bug de race condition en Zustand que llevaba 2 días atormentándome.",
+    "rating": 5,
+    "createdAt": "2026-09-22T11:05:00Z"
+  },
+  {
+    "id": "c-5",
+    "promptId": "vp-4",
+    "name": null,
+    "message": "Excelente para desarmar componentes gigantes en módulos testeables. Muy limpio.",
+    "rating": 4,
+    "createdAt": "2026-09-22T20:10:00Z"
+  }
+]
